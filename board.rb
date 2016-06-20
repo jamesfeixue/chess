@@ -22,20 +22,22 @@ class Board
     piece = self[start]
     #TODO replace string_piece with real piece
     begin
-      if self[start].nil?
-        raise NoPieceError("There's no piece there!")
+      if piece.nil?
+        raise NoPieceError.new ("No Piece Error")
       end
-      #TODO call piece valid_move? method
+      if !piece.valid_move?(end_pos)
+        raise InvalidMoveError.new ("Invalid Move Error")
+      end
 
       self[start] = nil
       self[end_pos] = piece
 
     rescue NoPieceError => e
       puts "There is no piece at that space. Please select another space."
-      retry
+      # retry
     rescue InvalidMoveError => e
       puts "You can't move there!"
-      retry
+      # retry
     end
   end
 
