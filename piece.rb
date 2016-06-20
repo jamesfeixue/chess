@@ -1,10 +1,16 @@
 class Piece
 
-  attr_reader :pos
+  attr_reader :pos, :color, :board
 
-  def initialize(pos)
+  def initialize(color, board, pos)
+    @color = color
+    @board = board
     @pos = pos
+  end
 
+
+  def valid_move?(position)
+    board[position].nil?
   end
 
   #temp to_s method

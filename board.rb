@@ -26,6 +26,10 @@ class Board
         raise NoPieceError("There's no piece there!")
       end
       #TODO call piece valid_move? method
+
+      self[start] = nil
+      self[end_pos] = piece
+
     rescue NoPieceError => e
       puts "There is no piece at that space. Please select another space."
       retry
@@ -39,20 +43,34 @@ class Board
 
   def populate
     positions = File.readlines("populate.txt")
-    #debugger
-    positions.each_with_index do |row, index|
+    positions.each_with_index do |row, row_index|
+
       unless row == "\n"
-        self.grid[index] = positions[index]
+
+        color = nil
+        if row_index <= 1
+          color = :white
+        elsif row_index >= 6
+          color = :black
+        end
+
+        column_index = 0
+        self.grid[row_index].map! do |el|
+          column_index += 1
+          el = Piece.new(color, self, [row_index, column_index-1])
+        end
       end
     end
-
-
-
-    # grid.each_with_index do |row, i|
-    #   row.each_with_index do |column, j|
-    #     self.grid[i][j] = Piece.new([i, j])
-    #   end
-    # end
   end
+
+end
+
+
+
+class NoPieceError < StandardError
+
+end
+
+class InvalidMoveError < StandardError
 
 end
