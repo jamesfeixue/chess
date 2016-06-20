@@ -19,7 +19,20 @@ class Board
   end
 
   def move(start, end_pos)
-
+    piece = self[start]
+    #TODO replace string_piece with real piece
+    begin
+      if self[start].nil?
+        raise NoPieceError("There's no piece there!")
+      end
+      #TODO call piece valid_move? method
+    rescue NoPieceError => e
+      puts "There is no piece at that space. Please select another space."
+      retry
+    rescue InvalidMoveError => e
+      puts "You can't move there!"
+      retry
+    end
   end
 
   private
