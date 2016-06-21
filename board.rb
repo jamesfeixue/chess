@@ -58,8 +58,9 @@ class Board
 
         column_index = 0
         self.grid[row_index].map! do |el|
+          name = row[column_index] #e.g. "K"
           column_index += 1
-          el = Piece.new(color, self, [row_index, column_index-1])
+          el = Piece.new(color, self, [row_index, column_index-1], name)
         end
       end
     end

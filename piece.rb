@@ -1,11 +1,13 @@
 class Piece
 
   attr_reader :pos, :color, :board
+  attr_accessor :name
 
-  def initialize(color, board, pos)
+  def initialize(color, board, pos, name)
     @color = color
     @board = board
     @pos = pos
+    @name = name
   end
 
 
@@ -16,7 +18,7 @@ class Piece
   #temp to_s method
 
   def to_s
-    return "p"
+    name
   end
 
   # def pos
