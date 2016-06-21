@@ -40,8 +40,15 @@ module Cursorable
     case key
     when :ctrl_c
       exit 0
-    when :return, :space
-      @cursor_pos
+    when :space, :return
+      if @selected
+        @move_to = @cursor_pos
+        make_move
+        @selected = false
+      else
+        @move_from = @cursor_pos
+        @selected = true
+      end
     when :left, :right, :up, :down
       update_pos(MOVES[key])
       nil

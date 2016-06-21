@@ -6,12 +6,15 @@ class Display
   include Cursorable
 
 
-  attr_reader :selected, :cursor_pos, :board
+  attr_reader :cursor_pos, :board
+  attr_accessor :selected
 
   def initialize(board)
     @cursor_pos = [0,0]
     @selected = false
     @board = board
+    @move_from = nil
+    @move_to = nil
   end
 
   def move(new_pos)
@@ -60,6 +63,10 @@ class Display
 
   end
 
+  def make_move
+    board.move(@move_from, @move_to)
+  end
+
   def get_piece_colors(piece)
     piece.color
   end
@@ -79,4 +86,5 @@ d = Display.new(b)
 while true
   d.render
   d.get_input
+
 end
