@@ -35,11 +35,11 @@ module Slideable
     positions = []
     current_pos = [current_pos[0]+dx, current_pos[1]+dy]
     until !current_pos[0].between?(0,7) || !current_pos[1].between?(0,7)
-      current_pos = [current_pos[0]+dx, current_pos[1]+dy]
       positions << current_pos
+      current_pos = [current_pos[0]+dx, current_pos[1]+dy]
     end
 
-    positions
+    positions 
   end
 
 end

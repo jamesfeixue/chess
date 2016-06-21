@@ -18,8 +18,12 @@ class Piece
   #temp to_s method
 
   def to_s
-    name
+    " " + name + " "
   end
+
+  def moves
+
+  end 
 
   # def pos
   #   x,y = pos
