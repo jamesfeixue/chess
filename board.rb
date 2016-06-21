@@ -14,6 +14,11 @@ class Board
     grid[x][y]
   end
 
+  def in_bounds?(pos)
+    x,y = pos
+    x.between?(0,7) && y.between?(0,7)
+  end
+
   def []=(pos, piece)
     x,y = pos
     grid[x][y] = piece

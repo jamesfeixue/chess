@@ -1,16 +1,21 @@
 require 'colorize'
+require_relative 'cursorable'
+require_relative 'board'
 class Display
 
-  attr_reader :selected, :cursor, :board
+  include Cursorable
+
+
+  attr_reader :selected, :cursor_pos, :board
 
   def initialize(board)
-    @cursor = [0,0]
+    @cursor_pos = [0,0]
     @selected = false
     @board = board
   end
 
   def move(new_pos)
-    cursor = new_pos
+    cursor_pos = new_pos
     render
   end
 
@@ -41,12 +46,12 @@ class Display
   def get_bg_colors(pos) # make sure this returns a new square
     # if cursor then render
     x, y = pos
-    if  pos == cursor
+    if  pos == cursor_pos
       color = :red
     elsif (x + y) % 2 == 0
       color = :light_blue
     elsif (x + y) % 2 == 1
-      color =  :yellow 
+      color =  :yellow
     else
       puts "error"
     end
@@ -67,4 +72,11 @@ class Display
     build_grid.each {|row| puts row.join}
   end
 
+end
+b = Board.new
+d = Display.new(b)
+
+while true
+  d.render
+  d.get_input
 end
