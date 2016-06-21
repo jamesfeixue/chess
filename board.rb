@@ -1,5 +1,6 @@
 require 'byebug'
 require_relative "piece"
+require_relative "null_piece"
 class Board
 
   attr_reader :grid
@@ -20,16 +21,20 @@ class Board
 
   def move(start, end_pos)
     piece = self[start]
-    #TODO replace string_piece with real piece
     begin
-      if piece.nil?
+      if piece.is_a?(NullPiece)
         raise NoPieceError.new ("No Piece Error")
       end
       if !piece.valid_move?(end_pos)
         raise InvalidMoveError.new ("Invalid Move Error")
       end
+      #TODO revise if we change logic for valid move
+      null_piece = self[end_pos]
+      #swap the current piece and the null piece
+      #self[start] is always a non-Null piaece
+      #self[end] (if valid) is always a null piece
 
-      self[start] = nil
+      self[start] = null_piece
       self[end_pos] = piece
 
     rescue NoPieceError => e
@@ -41,7 +46,7 @@ class Board
     end
   end
 
-  alias_method :rows, :grid   
+  alias_method :rows, :grid
 
   private
 
@@ -49,7 +54,7 @@ class Board
     positions = File.readlines("populate.txt")
     positions.each_with_index do |row, row_index|
 
-      unless row == "\n"
+      unless row.include?("0")
 
         color = nil
         if row_index <= 1
@@ -58,13 +63,17 @@ class Board
           color = :black
         end
 
-        column_index = 0
-        self.grid[row_index].map! do |el|
+
+        self.grid[row_index].map!.with_index do |el, column_index|
           name = row[column_index] #e.g. "K"
-          column_index += 1
-          el = Piece.new(color, self, [row_index, column_index-1], name)
+          el = Piece.new(color, self, [row_index, column_index], name)
+        end
+      else
+        self.grid[row_index].map!.with_index do |el, column_index|
+          el = NullPiece.new([row_index, column_index])
         end
       end
+
     end
   end
 

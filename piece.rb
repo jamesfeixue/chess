@@ -12,7 +12,7 @@ class Piece
 
 
   def valid_move?(position)
-    board[position].nil?
+    board[position].is_a?(NullPiece)
   end
 
   #temp to_s method
