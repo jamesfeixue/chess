@@ -34,8 +34,11 @@ class Board
       #self[start] is always a non-Null piaece
       #self[end] (if valid) is always a null piece
 
+      # TODO refine position updating (store in either board or piece, not both?)
       self[start] = null_piece
+        null_piece.pos = start
       self[end_pos] = piece
+        piece.pos = end_pos
 
     rescue NoPieceError => e
       puts "There is no piece at that space. Please select another space."
