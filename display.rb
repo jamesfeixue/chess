@@ -39,7 +39,7 @@ class Display
 
     background = get_bg_colors(pos)
     foreground = nil
-    unless piece == nil
+    unless piece.is_a?(NullPiece)
       foreground = get_piece_colors(piece)
     end
       {background: background, color: foreground}

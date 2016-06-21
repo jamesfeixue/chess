@@ -1,5 +1,11 @@
-class NullPiece < Piece
-  include Singleton 
+require 'singleton'
+
+class NullPiece
+  include Singleton
+
+  def initialize
+    
+  end
 
   def to_s
     " "

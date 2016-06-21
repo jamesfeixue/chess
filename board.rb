@@ -33,15 +33,8 @@ class Board
       if !piece.valid_move?(end_pos)
         raise InvalidMoveError.new ("Invalid Move Error")
       end
-      #TODO revise if we change logic for valid move
-      null_piece = self[end_pos]
-      #swap the current piece and the null piece
-      #self[start] is always a non-Null piaece
-      #self[end] (if valid) is always a null piece
 
-      # TODO refine position updating (store in either board or piece, not both?)
-      self[start] = null_piece
-        null_piece.pos = start
+      self[start] = NullPiece.instance
       self[end_pos] = piece
         piece.pos = end_pos
 
@@ -78,7 +71,7 @@ class Board
         end
       else
         self.grid[row_index].map!.with_index do |el, column_index|
-          el = NullPiece.new([row_index, column_index])
+          el = NullPiece.instance
         end
       end
 
