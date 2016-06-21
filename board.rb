@@ -41,6 +41,8 @@ class Board
     end
   end
 
+  alias_method :rows, :grid   
+
   private
 
   def populate

@@ -15,22 +15,26 @@ class Display
   end
 
   def build_grid
-    board.each_with_index.map do |row, row_number|
+    board.rows.map.with_index do |row, row_number|
       build_row(row, row_number)
     end
   end
 
   def build_row(row, row_number)
-    row.each_with_index.map do |piece, column_number|
+    row.map.with_index do |piece, column_number|
       color_options = get_colors(piece, [row_number, column_number])
       square = piece.to_s.colorize(color_options)
     end
   end
 
   def get_colors(piece, pos)
+
     background = get_bg_colors(pos)
-    foreground = get_piece_colors(piece)
-    {background: background, color: foreground}
+    foreground = nil
+    unless piece == nil
+      foreground = get_piece_colors(piece)
+    end
+      {background: background, color: foreground}
   end
 
 
@@ -42,7 +46,7 @@ class Display
     elsif (x + y) % 2 == 0
       color = :light_blue
     elsif (x + y) % 2 == 1
-      color =  :blue
+      color =  :yellow 
     else
       puts "error"
     end
@@ -62,3 +66,5 @@ class Display
     # puts "" for key mappings
     build_grid.each {|row| puts row.join}
   end
+
+end
