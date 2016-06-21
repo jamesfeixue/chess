@@ -1,7 +1,5 @@
 class NullPiece < Piece
-  def initialize(pos)
-    @pos = pos
-  end
+  include Singleton 
 
   def to_s
     " "
